@@ -10,7 +10,8 @@
     'website': 'odoomates.com',
     'depends': ['mail','sale',],
     'demo': [],
-    'data': ["views/patient.xml","data/sequence.xml","views/appointment.xml"
+    'data': ["views/patient.xml","data/sequence.xml","views/appointment.xml","reports/report.xml",
+             'reports/patient_card.xml',
 
     ],
     'installable': True,
