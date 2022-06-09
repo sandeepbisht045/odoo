@@ -30,6 +30,7 @@ class HospitalPatient(models.Model):
                            index=True, default=lambda self: _('New'))
     notes = fields.Text(string="Registration Note")
     appointment_count = fields.Integer(string='Appointment', compute='get_appointment_count')
+    active=fields.Boolean("Active",default=True)
 
     @api.constrains("patient_age")
     def check_age(self):
