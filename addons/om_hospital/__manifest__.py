@@ -11,7 +11,9 @@
     'depends': ['mail','sale',],
     'demo': [],
     'data': ["views/patient.xml","data/sequence.xml","views/appointment.xml","reports/report.xml",
-             'reports/patient_card.xml',"data/data.xml","security/security.xml"
+             'reports/patient_card.xml',"data/data.xml","security/security.xml",
+             "security/ir.model.access.csv"
+
 
     ],
     'installable': True,

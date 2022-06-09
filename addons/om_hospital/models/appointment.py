@@ -32,10 +32,20 @@ class HospitalAppointment(models.Model):
     appointment_date = fields.Date(string='Date')
     doctor_note = fields.Text(string="Note")
     pharmacy_note = fields.Text(string="Note")
+    appointment_lines=fields.One2many("hospital.appointment.lines","appointment_id",string="Appointment Lines")
     state = fields.Selection([
         ('draft', 'Draft'),
         ('confirm', 'Confirm'),
         ('done', 'Done'),
         ('cancel', 'Cancelled'),
     ], string='Status', readonly=True, default='draft')
+
+
+class HospitalAppointmentLines(models.Model):
+    _name = 'hospital.appointment.lines'
+    _description = 'Appointment Lines'
+
+    product_id = fields.Many2one('product.product', string='Medicine')
+    product_qty = fields.Integer(string="Quantity")
+    appointment_id = fields.Many2one('hospital.appointment', string='Appointment ID')
 
