@@ -45,6 +45,16 @@
                         <field name="notes"/>
                     </group>
 
+                    <notebook>
+<page string="Doctor Prescription">
+<group>
+    <field name="doctor_note"/>
+</group>
+</page>
+<page string="Pharmacy">
+<field name="pharmacy_note"/>
+</page>
+</notebook>
                 </sheet>
                 <div class="oe_chatter">
                     <field name="message_follower_ids" widget="mail_followers"/>
