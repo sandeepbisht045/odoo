@@ -5,6 +5,18 @@ class SaleOrderInherit(models.Model):
     _inherit='sale.order'
     patient_name=fields.Char(string="Patient Name")
 
+class ResPartners(models.Model):
+    _inherit = 'res.partner'
+
+    # How to OverRide Create Method Of a Model
+    @api.model
+    def create(self, vals_list):
+        res = super(ResPartners, self).create(vals_list)
+        print("yes working")
+        # do the custom coding here
+        return res
+
+
 
 class HospitalPatient(models.Model):
     _name = 'hospital.patient'
