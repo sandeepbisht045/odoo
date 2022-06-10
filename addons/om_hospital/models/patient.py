@@ -32,6 +32,12 @@ class HospitalPatient(models.Model):
     appointment_count = fields.Integer(string='Appointment', compute='get_appointment_count')
     active=fields.Boolean("Active",default=True)
 
+    @api.onchange('doctor_id')
+    def set_doctor_gender(self):
+        for rec in self:
+            if rec.doctor_id:
+                rec.doctor_gender = rec.doctor_id.gender
+
     @api.constrains("patient_age")
     def check_age(self):
         for rec in self:
