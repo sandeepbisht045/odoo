@@ -45,7 +45,8 @@
         <field name="arch" type="xml">
             <form string="Patients">
                 <header>
-                    <button name="%(om_hospital.create_appointment_wizard)d" string="Create Appointment" type="action" class="oe_highlight"/>
+                    <button name="%(om_hospital.create_appointment_wizard)d" string="Create Appointment" type="action" class="oe_highlight"
+                    context="{'default_patient_id':active_id}"/>
                 </header>
                 <sheet>
                     <div class="oe_button_box" name="button_box">
@@ -127,4 +128,6 @@
 
     <menuitem id="hospital_root" name="Hospital" sequence="1" web_icon="star_hospital,static/description/icon.png"/>
     <menuitem id="hospital_patient" name="Patient" parent="hospital_root" action="action_patient" />
+        <menuitem id="create_appointment" name="Create Appointment" parent="hospital_root" action="action_patient" />
+
 </odoo>
