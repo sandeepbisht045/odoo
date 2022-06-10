@@ -86,3 +86,11 @@ class HospitalPatient(models.Model):
             'type': 'ir.actions.act_window',
         }
 
+    @api.multi
+    def name_get(self):
+        # name get function for the model executes automatically
+        res = []
+        for rec in self:
+            res.append((rec.id, '%s - %s' % (rec.name_seq,rec.patient_name)))
+        return res
+
