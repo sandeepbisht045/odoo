@@ -39,6 +39,10 @@ class HospitalPatient(models.Model):
             if rec.doctor_id:
                 rec.doctor_gender = rec.doctor_id.gender
 
+    @api.model
+    def test_cron_job(self):
+        print("abcd")
+
     @api.constrains("patient_age")
     def check_age(self):
         for rec in self:
