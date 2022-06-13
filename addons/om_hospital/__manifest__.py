@@ -13,7 +13,7 @@
     'data': ["wizards/create_appointment.xml","views/patient.xml","data/sequence.xml","data/cron.xml",
              "views/appointment.xml","reports/report.xml",
              'reports/patient_card.xml',"data/data.xml","security/security.xml",
-             "security/ir.model.access.csv","data/mail_template.xml"
+             "security/ir.model.access.csv","data/mail_template.xml","views/lab.xml"
 
 
     ],
