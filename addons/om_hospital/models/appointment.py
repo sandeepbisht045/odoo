@@ -13,6 +13,14 @@ class HospitalAppointment(models.Model):
         result = super(HospitalAppointment, self).create(vals)
         return result
 
+    @api.multi
+    def write(self, vals):
+        # overriding the write method of appointment model
+        res = super(HospitalAppointment, self).write(vals)
+        print("Test write function")
+        # do as per the need
+        return res
+
     def _get_default_note(self):
         return  "Subscribe our channel"
 
