@@ -31,6 +31,7 @@ class HospitalPatient(models.Model):
     notes = fields.Text(string="Registration Note")
     appointment_count = fields.Integer(string='Appointment', compute='get_appointment_count')
     active=fields.Boolean("Active",default=True)
+    patient_name_upper=fields.Char(compute='_compute_upper_name',inverse='_inverse_upper_name')
 
     @api.onchange('doctor_id')
     def set_doctor_gender(self):
@@ -99,4 +100,13 @@ class HospitalPatient(models.Model):
         template_id = self.env.ref('om_hospital.patient_card_email_template').id
         template = self.env['mail.template'].browse(template_id)
         template.send_mail(self.id, force_send=True)
+
+    @api.depends('patient_name')
+    def _compute_upper_name(self):
+        for rec in self:
+            rec.patient_name_upper=rec.patient_name_upper() if rec.patient_name else False
+
+    def _inverse_upper_name(self):
+        for rec in self:
+            rec.patient_name=rec.patient_name_upper().lower() if rec.patient_name_upper else False
 
