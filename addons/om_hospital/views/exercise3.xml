@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="job_order_tree" model="ir.ui.view">
+        <field name="name">job.order.tree</field>
+        <field name="model">purchase.order</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="partner_id1"/>
+            </tree>
+        </field>
+    </record>
+    <record id="job_order_form_view" model="ir.ui.view">
+        <field name="name">job.order.form.view</field>
+        <field name="model">purchase.order</field>
+        <field name="arch" type="xml">
+            <form string="Job Order">
+                <sheet>
+                    <group>
+                        <field name="name_seq"/>
+                        <field name="flag_id" readonly="1" force_save="1"/>
+                    </group>
+                    <group>
+                        <group>
+                            <field name="order_type"/>
+                            <field name="partner_id1"/>
+                            <field name="partner_ref1"/>
+                            <field name="currency_id1"/>
+                            <field name="process"/>
+                        </group>
+                        <group>
+                            <field name="date_order1"/>
+                            <field name="company_id1"/>
+                            <field name="received_item"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Product Out">
+                            <field name="order_line1">
+                            <tree string="Purchase Order Line" editable="bottom">
+                                <field name="product_id"/>
+                                <field name="name1"/>
+                                <field name="date_planned"/>
+                                <field name="product_qty"/>
+                                <field name="received_qty"/>
+                                <field name="billed_qty"/>
+                                <field name="price_unit"/>
+                                <field name="price_subtotal"/>
+                            </tree>
+                            </field>
+                        </page>
+                        <page string="Product In">
+                            <field name="invoice_status1"/>
+                        </page>
+
+                        <page string="Deliveries &amp; Invoices">
+                            <group>
+                                <group>
+                                    <label for="date_planned1"/>
+                                    <div>
+                                        <field name="date_planned1" required="1" />
+                                    </div>
+                                    <field name="incoterm_id1"/>
+                                </group>
+                                <group>
+                                    <field name="invoice_status1"/>
+                                    <field name="payment_term_id1" options="{'no_open': True, 'no_create': True}" />
+                                    <field name="fiscal_position_id1" options="{'no_create': True}"/>
+                                    <field name="date_approve1" />
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="job_action_order" model="ir.actions.act_window">
+        <field name="name">Job Order</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">purchase.order</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{'default_flag_id':True}</field>
+<!--        <field name="domain">[('flag_id','=',True)]</field>-->
+        <field name="help" type="html"> <p>xyz</p></field>
+    </record>
+
+    <record id="action_res_partner_child_tree" model="ir.actions.act_window.view">
+        <field name="sequence" eval="1"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="om_hospital.job_order_tree"/>
+        <field name="act_window_id" ref="job_action_order"/>
+    </record>
+    <record id="action_res_partner_child_form" model="ir.actions.act_window.view">
+        <field eval="2" name="sequence"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="om_hospital.job_order_form_view"/>
+        <field name="act_window_id" ref="job_action_order"/>
+    </record>
+    <!--    purchase order setup-->
+    <!--    removing below will call job orders form in purchase order-->
+    <record model="ir.actions.act_window.view" id="sub_action_view_purchase_order_tree">
+        <field name="sequence" eval="3"/>
+        <field name="view_mode">tree</field>
+        <field name="view_id" ref="purchase.purchase_order_tree"/>
+        <field name="act_window_id" ref="purchase.purchase_form_action"/>
+    </record>
+    <record model="ir.actions.act_window.view" id="sub_action_view_purchase_order_form">
+        <field name="sequence" eval="4"/>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="purchase.purchase_order_form"/>
+        <field name="act_window_id" ref="purchase.purchase_form_action"/>
+    </record>
+
+    <menuitem id="purchase_menu_purchase_order"
+            name="Job Orders"
+            parent="purchase.menu_procurement_management" action="job_action_order"
+            sequence="2"/>
+
+</odoo>
+
+
+

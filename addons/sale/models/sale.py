@@ -32,7 +32,10 @@ class SaleOrder(models.Model):
             amount_untaxed = amount_tax = 0.0
             for line in order.order_line:
                 amount_untaxed += line.price_subtotal
-                amount_tax += line.price_tax
+                if self.tax_invisible:
+                    amount_tax += line.price_tax
+                else:
+                    amount_tax = 0
             order.update({
                 'amount_untaxed': amount_untaxed,
                 'amount_tax': amount_tax,

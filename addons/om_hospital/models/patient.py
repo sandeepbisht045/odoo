@@ -4,6 +4,15 @@ from odoo.exceptions import  ValidationError
 class SaleOrderInherit(models.Model):
     _inherit='sale.order'
     patient_name=fields.Char(string="Patient Name")
+    # ----------------------------------------------
+    tax_invisible = fields.Boolean(string="tax1")
+    @api.onchange('partner_id')
+    def tax_invisible_fun(self):
+        self.tax_invisible = False
+        if self.partner_id.vat:
+            self.tax_invisible = True
+            # -----------------------------
+
 
 class ResPartners(models.Model):
     _inherit = 'res.partner'
